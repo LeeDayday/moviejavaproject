@@ -32,6 +32,7 @@ public class MainPage extends JFrame {
 	 * Create the frame.
 	 */
 	public MainPage() {
+		
 		setTitle("Main Page");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -40,6 +41,7 @@ public class MainPage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// 관리자 전용
 		JButton adminBtn = new JButton("관리자 전용");
 		adminBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -51,6 +53,7 @@ public class MainPage extends JFrame {
 		adminBtn.setBounds(128, 137, 101, 62);
 		contentPane.add(adminBtn);
 		
+		// 회원 전용
 		JButton memberBtn = new JButton("회원 전용");
 		memberBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
