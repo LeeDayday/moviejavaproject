@@ -2,7 +2,26 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import ListDAO.Connectionz;
+import ListDAO.MemberListDAO;
+import ListDAO.MovieListDAO;
+import ListDAO.ReservationListDAO;
+import ListDAO.ScheduleListDAO;
+import ListDAO.SeatListDAO;
+import ListDAO.TheaterListDAO;
+import ListDAO.TicketListDAO;
+import ListVO.MemberListVO;
+import ListVO.MovieListVO;
+import ListVO.ReservationListVO;
+import ListVO.ScheduleListVO;
+import ListVO.SeatListVO;
+import ListVO.TheaterListVO;
+import ListVO.TicketListVO;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -10,6 +29,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,6 +40,7 @@ import java.awt.event.FocusEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class AdminPage extends JFrame {
 	private JPanel contentPane;
@@ -456,29 +477,185 @@ public class AdminPage extends JFrame {
 		});
 		
 		JComboBox searchBox = new JComboBox();
-		searchBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String table2 = searchBox.getSelectedItem().toString();
-			}
-		});
 		searchBox.setModel(new DefaultComboBoxModel(new String[] {"Member", "Movie", "Reservation", "Schedule", "Seat", "Theater", "Ticket"}));
 		searchBox.setBounds(22, 197, 129, 23);
 		contentPane.add(searchBox);
 		btn2.setBounds(742, 139, 110, 35);
 		contentPane.add(btn2);
 		
-		table = new JTable();
-		table.setBounds(22, 250, 844, 324);
-		contentPane.add(table);
+		JTextArea tableArea = new JTextArea();
+		tableArea.setBounds(22, 260, 828, 314);
+		contentPane.add(tableArea);
+		
 		
 		JButton btn3 = new JButton("테이블 검색");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				String table2 = searchBox.getSelectedItem().toString();
+				
+				if(table2.equals("Member")) {
+					try {
+						tableArea.setText("Id \t Name \t Phone \t Mail\n");
+						MemberListDAO memberDAO = new MemberListDAO();
+						ArrayList<MemberListVO> memberList = memberDAO.getMemberList();
+						for (MemberListVO v: memberList) {
+							int id = v.getId();
+							String name = v.getName();
+							String phone = v.getPhone();
+							String mail = v.getMail();
+							String str = id+"\t"+name+"\t"+phone+"\t"+mail+"\n";
+							System.out.println(str);
+							tableArea.append(str);
+						}
+					}
+					catch(Exception e1) {
+						messageLabel.setText("Error "+ e1);
+					}
+				}
+					
+					else if (table2.equals("Movie")) {
+						try {
+							tableArea.setText("영화번호 \t 영화명 \t 상영시간 \t 상영등급 \t 감독명 \t 배우명 \t 장르 \t 영화소개 \t 개봉일 정보\n");
+							MovieListDAO movieDAO = new MovieListDAO();
+							ArrayList<MovieListVO> movieList = movieDAO.getMovieList();
+							for (MovieListVO v: movieList) {
+								int id = v.getId();
+								String title = v.getTitle();
+								int time = v.getTime();
+								String grade = v.getGrade();
+								String dir = v.getDir();
+								String actor = v.getActor();
+								String genre = v.getGenre();
+								String info = v.getInfo();
+										
+								
+								String str = id+"\t"+title+"\t"+time+"\t"+grade+"\t"+dir+"\t"+actor+"\t"+genre+"\t"+info+"\n";
+								System.out.println(str);
+								tableArea.append(str);
+							}
+						}
+						catch(Exception e1) {
+							messageLabel.setText("Error "+ e1);
+						}
+					}
+					else if (table2.equals("Reservation")) {
+						try {
+							tableArea.setText("예매번호 \t 결제방법 \t 결제금액 \t 결제상태 \t 회원id \t 결제일자\n");
+							ReservationListDAO resDAO = new ReservationListDAO();
+							ArrayList<ReservationListVO> resList = resDAO.getReservationList();
+							for (ReservationListVO v: resList) {
+								int id = v.getId();
+								String payment = v.getPayment();
+								int cost = v.getCost();
+								boolean paid = v.getPaid();
+								int mid = v.getMemberId();
+								String date = v.getDate();
+										
+								
+								String str = id+"\t"+payment+"\t"+cost+"\t"+paid+"\t"+mid+"\t"+date+"\n";
+								System.out.println(str);
+								tableArea.append(str);
+							}
+						}
+						catch(Exception e1) {
+							messageLabel.setText("Error "+ e1);
+						}
+					}
+					else if (table2.equals("Schedule")) {
+						try {
+							tableArea.setText("상영일정번호 \t 영화번호 \t 상영관번호 \t 상영시작일 \t 상영요일 \t 상영회차 \t 상영시작시간\n");
+							ScheduleListDAO scDAO = new ScheduleListDAO();
+							ArrayList<ScheduleListVO> scList = scDAO.getScheduleList();
+							for (ScheduleListVO v: scList) {
+								int id = v.getId();
+								int mid = v.getMovieId();
+								int tid = v.getTheaterId();
+								String date = v.getDate();
+								String day = v.getDay();
+								int nth = v.getNth();
+								String time = v.getTime();
+										
+								
+								String str = id+"\t"+mid+"\t"+tid+"\t"+date+"\t"+day+"\t"+nth+"\t"+time+"\n";
+								System.out.println(str);
+								tableArea.append(str);
+							}
+						}
+						catch(Exception e1) {
+							messageLabel.setText("Error "+ e1);
+						}
+					}
+					else if (table2.equals("Seat")) {
+						try {
+							tableArea.setText("좌석번호 \t 상영관번호 \t 좌석사용여부\n");
+							SeatListDAO seatDAO = new SeatListDAO();
+							ArrayList<SeatListVO> seatList = seatDAO.getSeatList();
+							for (SeatListVO v: seatList) {
+								int id = v.getId();
+								int tid = v.getTheaterId();
+								boolean use = v.getSeat();									
+								
+								String str = id+"\t"+tid+"\t"+use+"\n";
+								System.out.println(str);
+								tableArea.append(str);
+							}
+						}
+						catch(Exception e1) {
+							messageLabel.setText("Error "+ e1);
+						}	
+					}
+					else if (table2.equals("Theater")) {
+						try {
+							tableArea.setText("상영관번호 \t 좌석수 \t 상영관사용여부\n");
+							TheaterListDAO theaterDAO = new TheaterListDAO();
+							ArrayList<TheaterListVO> theaterList = theaterDAO.getTheaterList();
+							for (TheaterListVO v: theaterList) {
+								int id = v.getId();
+								int seats = v.getSeats();
+								boolean use = v.getUse();									
+								
+								String str = id+"\t"+seats+"\t"+use+"\n";
+								System.out.println(str);
+								tableArea.append(str);
+							}
+						}
+						catch(Exception e1) {
+							messageLabel.setText("Error "+ e1);
+						}	
+					}
+					else if (table2.equals("Ticket")) {
+						try {
+							tableArea.setText("티켓번호 \t 상영일정번호 \t 상영관번호 \t 좌석번호 \t 예매번호 \t 발권여부 \t 표준가격 \t 판매가격 \n");
+							TicketListDAO ticketDAO = new TicketListDAO();
+							ArrayList<TicketListVO> ticketList = ticketDAO.getTicketList();
+							for (TicketListVO v: ticketList) {
+								int id = v.getId();
+								int scid = v.getScheduleId();
+								int tid = v.getTheaterId();
+								int seid = v.getSeatId();
+								int rid = v.getResId();
+								boolean print = v.getPrint();
+								int price = v.getPrice();
+								int saleprice = v.getSaleprice();
+								
+								String str = id+"\t"+scid+"\t"+tid+"\t"+seid+"\t"+rid+"\t"+print+"\t"+price+"\t"+saleprice+"\n";
+								System.out.println(str);
+								tableArea.append(str);
+							}
+						}
+						catch(Exception e1) {
+							messageLabel.setText("Error "+ e1);
+						}	
+					}
+				}
+				
+			
 		});
 		btn3.setBounds(184, 205, 110, 35);
 		contentPane.add(btn3);
-			
+		
+		
+		
 
 	}
 }
