@@ -52,6 +52,8 @@ public class AdminPage extends JFrame {
 	Connection con;
 	PreparedStatement pst;
 	ResultSet rs;
+	int insertFlag = 0;
+
 	/**
 	 * Launch the application.
 	 */
@@ -94,8 +96,154 @@ public class AdminPage extends JFrame {
 		AdminLabel.setBounds(22, 24, 209, 30);
 		contentPane.add(AdminLabel);
 		
+		
+		// Insert
+		
+		JPanel propPanel = new JPanel(); // 속성 입력 창. JTextField로 일일이 받는다
+		propPanel.setBounds(22, 264, 830, 230);
+		contentPane.add(propPanel);
+		propPanel.setLayout(null);
+		
+		JPanel prop1 = new JPanel();
+		prop1.setLayout(null);
+		prop1.setBounds(0, 20, 129, 57);
+		propPanel.add(prop1);
+		
+		JLabel propL1 = new JLabel("");
+		propL1.setFont(new Font("굴림", Font.BOLD, 14));
+		propL1.setBounds(0, 0, 129, 15);
+		prop1.add(propL1);
+		
+		JTextField propF1 = new JTextField();
+		propF1.setColumns(10);
+		propF1.setBounds(0, 25, 129, 32);
+		prop1.add(propF1);
+		
+		JPanel prop2 = new JPanel();
+		prop2.setLayout(null);
+		prop2.setBounds(159, 20, 129, 57);
+		propPanel.add(prop2);
+		
+		JLabel propL2 = new JLabel("");
+		propL2.setFont(new Font("굴림", Font.BOLD, 14));
+		propL2.setBounds(0, 0, 129, 15);
+		prop2.add(propL2);
+		
+		JTextField propF2 = new JTextField();
+		propF2.setColumns(10);
+		propF2.setBounds(0, 25, 129, 32);
+		prop2.add(propF2);
+		
+		JPanel prop3 = new JPanel();
+		prop3.setLayout(null);
+		prop3.setBounds(321, 20, 129, 57);
+		propPanel.add(prop3);
+		
+		JLabel propL3 = new JLabel("");
+		propL3.setFont(new Font("굴림", Font.BOLD, 14));
+		propL3.setBounds(0, 0, 129, 15);
+		prop3.add(propL3);
+		
+		JTextField propF3 = new JTextField();
+		propF3.setColumns(10);
+		propF3.setBounds(0, 25, 129, 32);
+		prop3.add(propF3);
+		
+		JPanel prop4 = new JPanel();
+		prop4.setLayout(null);
+		prop4.setBounds(484, 20, 129, 57);
+		propPanel.add(prop4);
+		
+		JLabel propL4 = new JLabel("");
+		propL4.setFont(new Font("굴림", Font.BOLD, 14));
+		propL4.setBounds(0, 0, 129, 15);
+		prop4.add(propL4);
+		
+		JTextField propF4 = new JTextField();
+		propF4.setColumns(10);
+		propF4.setBounds(0, 25, 129, 32);
+		prop4.add(propF4);
+		
+		JPanel prop5 = new JPanel();
+		prop5.setLayout(null);
+		prop5.setBounds(643, 20, 129, 57);
+		propPanel.add(prop5);
+		
+		JLabel propL5 = new JLabel("");
+		propL5.setFont(new Font("굴림", Font.BOLD, 14));
+		propL5.setBounds(0, 0, 129, 15);
+		prop5.add(propL5);
+		
+		JTextField propF5 = new JTextField();
+		propF5.setColumns(10);
+		propF5.setBounds(0, 25, 129, 32);
+		prop5.add(propF5);
+		
+		JPanel prop6 = new JPanel();
+		prop6.setLayout(null);
+		prop6.setBounds(0, 142, 129, 57);
+		propPanel.add(prop6);
+		
+		JLabel propL6 = new JLabel("");
+		propL6.setFont(new Font("굴림", Font.BOLD, 14));
+		propL6.setBounds(0, 0, 129, 15);
+		prop6.add(propL6);
+		
+		JTextField propF6 = new JTextField();
+		propF6.setColumns(10);
+		propF6.setBounds(0, 25, 129, 32);
+		prop6.add(propF6);
+		
+		JPanel prop7 = new JPanel();
+		prop7.setLayout(null);
+		prop7.setBounds(159, 142, 129, 57);
+		propPanel.add(prop7);
+		
+		JLabel propL7 = new JLabel("");
+		propL7.setFont(new Font("굴림", Font.BOLD, 14));
+		propL7.setBounds(0, 0, 129, 15);
+		prop7.add(propL7);
+		
+		JTextField propF7 = new JTextField();
+		propF7.setColumns(10);
+		propF7.setBounds(0, 25, 129, 32);
+		prop7.add(propF7);
+		
+		JPanel prop8 = new JPanel();
+		prop8.setLayout(null);
+		prop8.setBounds(321, 142, 129, 57);
+		propPanel.add(prop8);
+		
+		JLabel propL8 = new JLabel("");
+		propL8.setFont(new Font("굴림", Font.BOLD, 14));
+		propL8.setBounds(0, 0, 129, 15);
+		prop8.add(propL8);
+		
+		JTextField propF8 = new JTextField();
+		propF8.setColumns(10);
+		propF8.setBounds(0, 25, 129, 32);
+		prop8.add(propF8);
+		
+		JPanel prop9 = new JPanel();
+		prop9.setLayout(null);
+		prop9.setBounds(484, 142, 129, 57);
+		propPanel.add(prop9);
+		
+		JLabel propL9 = new JLabel("");
+		propL9.setFont(new Font("굴림", Font.BOLD, 14));
+		propL9.setBounds(0, 0, 129, 15);
+		prop9.add(propL9);
+		
+		JTextField propF9 = new JTextField();
+		propF9.setColumns(10);
+		propF9.setBounds(0, 25, 129, 32);
+		prop9.add(propF9);
+		
+		propPanel.setVisible(false);
+		// property 입력 창은 오직 Insert 일 때만 보이게 설정
+		
 		// UPDATE / DELETE
-		JPanel setPanel = new JPanel();
+		JPanel setPanel = new JPanel(); // set 입력 공간
 		setPanel.setBounds(22, 130, 129, 57);
 		contentPane.add(setPanel);
 		setPanel.setLayout(null);
@@ -110,42 +258,7 @@ public class AdminPage extends JFrame {
 		setPanel.add(setField);
 		setField.setColumns(10);
 		
-		// 실행할 기능을 선택
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"UPDATE", "DELETE"}));
-		comboBox.setBounds(22, 89, 121, 23);
-		contentPane.add(comboBox);
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// 첫번째 combobox 정보 가져오기
-				String option = comboBox.getSelectedItem().toString();
-				// UPDATE 일 때만 SET을 입력받는다
-				if (option.equals("UPDATE")) {
-					setLabel.setEnabled(true);
-					setField.setEnabled(true);
-				}
-				else if (option.equals("DELETE")){
-					setLabel.setEnabled(false);
-					setField.setText("");
-					setField.setEnabled(false);
-				}
-			}
-		});
-
-			
-		// 위에서 선택한 명령을 실행할 테이블 선택
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// 두번째 combobox 정보 가져오기
-				String table1 = comboBox_1.getSelectedItem().toString();
-			}
-		});
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Member", "Movie", "Reservation", "Schedule", "Seat", "Theater", "Ticket"}));
-		comboBox_1.setBounds(182, 89, 129, 23);
-		contentPane.add(comboBox_1);
-		
-		JPanel wherePanel = new JPanel();
+		JPanel wherePanel = new JPanel(); // where 입력 공간
 		wherePanel.setLayout(null);
 		wherePanel.setBounds(182, 130, 129, 57);
 		contentPane.add(wherePanel);
@@ -158,21 +271,281 @@ public class AdminPage extends JFrame {
 		whereField = new JTextField();
 		whereField.setColumns(10);
 		whereField.setBounds(0, 25, 129, 32);
-		wherePanel.add(whereField);
+		wherePanel.add(whereField);		
 		
+		JTextArea tableArea = new JTextArea(); // 검색한 결과가 출력되는 공간
+		tableArea.setBounds(22, 260, 828, 314);
+		contentPane.add(tableArea);
+		
+		// 실행할 기능을 선택
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {" - 기능 선택 - ","INSERT","UPDATE", "DELETE"}));
+		comboBox.setBounds(22, 89, 121, 23);
+		contentPane.add(comboBox);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// 첫번째 combobox 정보 가져오기
+				String option = comboBox.getSelectedItem().toString();
+				
+				// UPDATE 일 때만 SET을 입력받는다
+				propPanel.setVisible(false);
+				if(option.equals("INSERT")) {
+					setPanel.setVisible(false);
+					wherePanel.setVisible(false);
+					tableArea.setVisible(false);
+					insertFlag = 1;
+					
+				}
+				else if (option.equals("UPDATE")) {
+					setPanel.setVisible(true);
+					wherePanel.setVisible(true);
+					setLabel.setEnabled(true);
+					setField.setEnabled(true);
+					insertFlag = 0;
+				}
+				else if (option.equals("DELETE")){
+					setPanel.setVisible(true);
+					wherePanel.setVisible(true);
+					setLabel.setEnabled(false);
+					setField.setText("");
+					setField.setEnabled(false);
+					insertFlag = 0;
+				}
+				else {
+					insertFlag = 0;
+				}
+			}
+		});
+
+		
+		// 위에서 선택한 명령을 실행할 테이블 선택
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// combobox 정보 가져오기
+				String table1 = comboBox_1.getSelectedItem().toString();
+				if(insertFlag == 1)
+				{
+					propPanel.setVisible(true);
+					prop4.setVisible(true);
+					prop5.setVisible(true);
+					prop6.setVisible(true);
+					prop7.setVisible(true);
+					prop8.setVisible(true);
+					prop9.setVisible(true);
+					// Member table 속성 값 입력 창 띄우기
+					if(table1.equals("Member"))
+					{
+						// 회원 아이디 \t 고객명 \t 전화번호 \t 전자메일 \
+						propL1.setText("회원 아이디");
+						propL2.setText("고객명");
+						propL3.setText("전화번호");
+						propL4.setText("전자 메일");
+						prop5.setVisible(false);
+						prop6.setVisible(false);
+						prop7.setVisible(false);
+						prop8.setVisible(false);
+						prop9.setVisible(false);
+					}
+					// Movie table 속성 값 입력 창 띄우기
+					else if (table1.equals("Movie"))
+					{ 
+						// 영화번호 \t 영화명 \t 상영시간 \t 상영등급 \t 감독명 \t 배우명 \t 장르 \t 영화소개 \t 개봉일 정보
+						propL1.setText("영화번호");
+						propL2.setText("영화명");
+						propL3.setText("상영시간");
+						propL4.setText("상영등급");
+						propL5.setText("감독");
+						propL6.setText("배우");
+						propL7.setText("장르");
+						propL8.setText("영화소개");
+						propL9.setText("개봉일");
+					}
+					// Reservation table 속성 값 입력 창 띄우기
+					else if (table1.equals("Reservation")) 
+					{
+						// 예매번호 \t 결제방법 \t 결제금액 \t 결제상태 \t 회원id \t 결제일자
+						propL1.setText("예매 번호");
+						propL2.setText("결제 방법");
+						propL3.setText("결제 금액");
+						propL4.setText("결제 상태");
+						propL5.setText("회원 id");
+						propL6.setText("결제 일자");
+						prop7.setVisible(false);
+						prop8.setVisible(false);
+						prop9.setVisible(false);
+					}
+					// Schedule table 속성 값 입력 창 띄우기
+					else if (table1.equals("Schedule"))
+					{
+						//상영일정번호 \t 영화번호 \t 상영관번호 \t 상영시작일 \t 상영요일 \t 상영회차 \t 상영시작시간
+						propL1.setText("상영 일정 번호");
+						propL2.setText("영화 번호");
+						propL3.setText("상영관 번호");
+						propL4.setText("상영 시작일");
+						propL5.setText("상영 요일");
+						propL6.setText("상영 회차");
+						propL7.setText("상영시작 시간");
+						prop8.setVisible(false);
+						prop9.setVisible(false);
+					}
+					// Seat table 속성 값 입력 창 띄우기
+					else if (table1.equals("Seat"))
+					{
+						//좌석번호 \t 상영관번호 \t 좌석사용여부
+						propL1.setText("좌석 번호");
+						propL2.setText("상영관 번호");
+						propL3.setText("좌석사용 여부");
+						prop4.setVisible(false);
+						prop5.setVisible(false);
+						prop6.setVisible(false);
+						prop7.setVisible(false);
+						prop8.setVisible(false);
+						prop9.setVisible(false);
+					}
+					// Theater table 속성 값 입력 창 띄우기
+					else if (table1.equals("Theater"))
+					{
+						//상영관번호 \t 좌석수 \t 상영관사용여부
+						propL1.setText("상영관 번호");
+						propL2.setText("좌석 수");
+						propL3.setText("상영관 사용 여부");
+						prop4.setVisible(false);
+						prop5.setVisible(false);
+						prop6.setVisible(false);
+						prop7.setVisible(false);
+						prop8.setVisible(false);
+						prop9.setVisible(false);
+					}
+					// Ticket table 속성 값 입력 창 띄우기
+					else if (table1.equals("Ticket"))
+					{
+						//티켓번호 \t 상영일정번호 \t 상영관번호 \t 좌석번호 \t 예매번호 \t 발권여부 \t 표준가격 \t 판매가격
+						propL1.setText("티켓 번호");
+						propL2.setText("상영 일정 번호");
+						propL3.setText("상영관 번호");
+						propL4.setText("좌석 번호");
+						propL5.setText("예매 번호");
+						propL6.setText("발권 여부");
+						propL7.setText("표준 가격");
+						propL8.setText("판매 가격");
+						prop9.setVisible(false);
+					}
+				}
+
+			}
+		});
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {" - 테이블 선택 - ", "Member", "Movie", "Reservation", "Schedule", "Seat", "Theater", "Ticket"}));
+		comboBox_1.setBounds(182, 89, 129, 23);
+		contentPane.add(comboBox_1);
+				
 		messageLabel.setBounds(473, 82, 401, 30);
 		contentPane.add(messageLabel);
-		JButton btn1 = new JButton("수정/삭제");
+		
+		// 입력 취소 버튼
+		JButton btn0 = new JButton("입력 취소");
+		btn0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setField.setText("");
+				whereField.setText("");
+				propF1.setText("");
+				propF2.setText("");
+				propF3.setText("");
+				propF4.setText("");
+				propF5.setText("");
+				propF6.setText("");
+				propF7.setText("");
+				propF8.setText("");
+				propF9.setText("");
+
+			}
+		});
+		
+		btn0.setBounds(476, 139, 121, 35);
+		contentPane.add(btn0);
+		
+		
+		// 실행 버튼
+		JButton btn1 = new JButton("실행");
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				// ComboBox 정보 가져오기
 				String option = comboBox.getSelectedItem().toString();
 				String table1 = comboBox_1.getSelectedItem().toString();
+				System.out.println(option);
+				// INSERT 실행
+				if(option.equals("INSERT")) {
+					try {
+						System.out.println("Start Insert");
+						String prop1 = propF1.getText();
+						String prop2 = propF2.getText();
+						String prop3 = propF3.getText();
+						String prop4 = propF4.getText();
+						String prop5 = propF5.getText();
+						String prop6 = propF6.getText();
+						String prop7 = propF7.getText();
+						String prop8 = propF8.getText();
+						String prop9 = propF9.getText();
+						// 속성이 3개인 table
+						if(table1.equals("Seat") || table1.equals("Theater")) {
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+");";
+							System.out.println(query);
+							pst = con.prepareStatement(query);
+							int ret = pst.executeUpdate();
+							messageLabel.setText("Insert 성공!");
+						}
+						// 속성이 4개인 table
+						else if (table1.equals("Member")) {
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ ");";
+							System.out.println(query);
+							pst = con.prepareStatement(query);
+							int ret = pst.executeUpdate();
+							messageLabel.setText("Insert 성공!");
+						}
+						// 속성이 6개인 table
+						else if (table1.equals("Reservation")) {
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+");";
+							System.out.println(query);
+							pst = con.prepareStatement(query);
+							int ret = pst.executeUpdate();
+							messageLabel.setText("Insert 성공!");
+						}
+						// 속성이 7개인 table
+						else if (table1.equals("Schedule")) {
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ ");";
+							System.out.println(query);
+							pst = con.prepareStatement(query);
+							int ret = pst.executeUpdate();
+							messageLabel.setText("Insert 성공!");
+						}
+						// 속성이 8개인 table
+						else if (table1.equals("Ticket")) {
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ "," +prop8+ ");";
+							System.out.println(query);
+							pst = con.prepareStatement(query);
+							int ret = pst.executeUpdate();
+							messageLabel.setText("Insert 성공!");
+						}
+						// 속성이 9개인 table
+						else if (table1.equals("Movie")) {
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ "," +prop8+ "," + prop9+ ");";
+							System.out.println(query);
+							pst = con.prepareStatement(query);
+							int ret = pst.executeUpdate();
+							messageLabel.setText("Insert 성공!");
+						}
+						
+					}
+					catch (Exception ex) {
+						messageLabel.setText(("Insert Error"+ex));
+					}
+				}
 				// 조건식 문자열 가져오기
 				String set = setField.getText();
 				String where = whereField.getText();
 				
+
 				// UPDATE 실행
 				if(option.equals("UPDATE")) {
 					try {
@@ -183,11 +556,11 @@ public class AdminPage extends JFrame {
 						int ret = pst.executeUpdate();						
 					}
 					catch (Exception ex) {
-						messageLabel.setText(("Error"+ex));
+						messageLabel.setText(("Update Error"+ex));
 					}
 				}
 				// DELETE 실행
-				else {
+				else if (option.equals("DELETE")){
 					try {
 						messageLabel.setText("");
 						String query = "delete from "+table1+" where "+where;
@@ -196,12 +569,12 @@ public class AdminPage extends JFrame {
 						int ret = pst.executeUpdate();						
 					}
 					catch (Exception ex) {
-						messageLabel.setText(("Error"+ex));
+						messageLabel.setText(("Delete Error"+ex));
 					}
 				}
 			}
 		});
-		btn1.setBounds(408, 139, 121, 35);
+		btn1.setBounds(609, 139, 121, 35);
 		contentPane.add(btn1);
 		
 		
@@ -478,24 +851,23 @@ public class AdminPage extends JFrame {
 		
 		JComboBox searchBox = new JComboBox();
 		searchBox.setModel(new DefaultComboBoxModel(new String[] {"Member", "Movie", "Reservation", "Schedule", "Seat", "Theater", "Ticket"}));
-		searchBox.setBounds(22, 197, 129, 23);
+		searchBox.setBounds(601, 208, 129, 23);
 		contentPane.add(searchBox);
 		btn2.setBounds(742, 139, 110, 35);
 		contentPane.add(btn2);
 		
-		JTextArea tableArea = new JTextArea();
-		tableArea.setBounds(22, 260, 828, 314);
-		contentPane.add(tableArea);
-		
-		
+
+		// 검색 기능
+		tableArea.setVisible(false);
 		JButton btn3 = new JButton("테이블 검색");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String table2 = searchBox.getSelectedItem().toString();
-				
+				propPanel.setVisible(false);
+				tableArea.setVisible(true);
 				if(table2.equals("Member")) {
 					try {
-						tableArea.setText("Id \t Name \t Phone \t Mail\n");
+						tableArea.setText("회원 아이디 \t 고객명 \t 전화번호 \t 전자메일 \n");
 						MemberListDAO memberDAO = new MemberListDAO();
 						ArrayList<MemberListVO> memberList = memberDAO.getMemberList();
 						for (MemberListVO v: memberList) {
@@ -651,7 +1023,7 @@ public class AdminPage extends JFrame {
 				
 			
 		});
-		btn3.setBounds(184, 205, 110, 35);
+		btn3.setBounds(742, 202, 110, 35);
 		contentPane.add(btn3);
 		
 		
