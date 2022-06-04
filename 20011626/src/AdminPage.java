@@ -190,8 +190,8 @@ public class AdminPage extends JFrame {
 				else {
 					try {
 						messageLabel.setText("");
-						String query = "delete "+table1+" where "+where;
-						//System.out.println(query);
+						String query = "delete from "+table1+" where "+where;
+						System.out.println(query);
 						pst = con.prepareStatement(query);
 						int ret = pst.executeUpdate();						
 					}
@@ -274,8 +274,8 @@ public class AdminPage extends JFrame {
 							+ "	`Schedule_day`	VARCHAR(20),\r\n"
 							+ "	`Schedule_nth`	VARCHAR(20),\r\n"
 							+ "	`Schedule_time`	VARCHAR(10),\r\n"
-							+ "	FOREIGN KEY (`Movie_id`) REFERENCES Movie(`Movie_id`),\r\n"
-							+ "	FOREIGN KEY(`Theater_id`) REFERENCES Theater(`Theater_id`)\r\n);";
+							+ "	FOREIGN KEY (`Movie_id`) REFERENCES Movie(`Movie_id`) on delete cascade on update cascade,\r\n"
+							+ "	FOREIGN KEY(`Theater_id`) REFERENCES Theater(`Theater_id`) on delete cascade on update cascade\r\n);";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
 					
@@ -283,7 +283,7 @@ public class AdminPage extends JFrame {
 							+ "	`Seat_id` 	INTEGER PRIMARY KEY,\r\n"
 							+ "	`Theater_id`	INTEGER,\r\n"
 							+ "	`Seat_use`	BOOLEAN,\r\n"
-							+ "	FOREIGN KEY (`Theater_id`) REFERENCES Theater(`Theater_id`)\r\n);";
+							+ "	FOREIGN KEY (`Theater_id`) REFERENCES Theater(`Theater_id`) on delete cascade on update cascade\r\n);";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
 					
@@ -302,7 +302,7 @@ public class AdminPage extends JFrame {
 							+ " `Res_paid`	BOOLEAN,\r\n"
 							+ "	`Member_id`	INTEGER,\r\n"
 							+ "	`Res_date`	DATE,\r\n"
-							+ "	FOREIGN KEY (`Member_id`) REFERENCES Member(`Member_id`)\r\n);";
+							+ "	FOREIGN KEY (`Member_id`) REFERENCES Member(`Member_id`) on delete cascade on update cascade\r\n);";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
 					
@@ -315,9 +315,9 @@ public class AdminPage extends JFrame {
 							+ "	`Ticket_print`	BOOLEAN,\r\n"
 							+ "	`Ticket_price`	INTEGER,\r\n"
 							+ "	`Ticket_saleprice`	INTEGER,\r\n"
-							+ "	FOREIGN KEY (`Schedule_id`) REFERENCES Schedule(`Schedule_id`),\r\n"
-							+ "	FOREIGN KEY (`Seat_id`) REFERENCES Seat(`Seat_id`),\r\n"
-							+ "	FOREIGN KEY (`Res_id`) REFERENCES Reservation(`Res_id`)\r\n);";
+							+ "	FOREIGN KEY (`Schedule_id`) REFERENCES Schedule(`Schedule_id`) on delete cascade on update cascade,\r\n"
+							+ "	FOREIGN KEY (`Seat_id`) REFERENCES Seat(`Seat_id`) on delete cascade on update cascade,\r\n"
+							+ "	FOREIGN KEY (`Res_id`) REFERENCES Reservation(`Res_id`) on delete cascade on update cascade\r\n);";
 							
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
