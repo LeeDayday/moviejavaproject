@@ -45,7 +45,6 @@ import java.util.ArrayList;
 public class AdminPage extends JFrame {
 	private JPanel contentPane;
 	JLabel AdminLabel = new JLabel("관리자");
-	private JTable table;
 	private JTextField setField;
 	private JTextField whereField;
 	JTextField messageLabel = new JTextField("");
@@ -273,9 +272,17 @@ public class AdminPage extends JFrame {
 		whereField.setBounds(0, 25, 129, 32);
 		wherePanel.add(whereField);		
 		
+
+		
 		JTextArea tableArea = new JTextArea(); // 검색한 결과가 출력되는 공간
-		tableArea.setBounds(22, 260, 828, 314);
-		contentPane.add(tableArea);
+		JScrollPane sp = new JScrollPane(tableArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		sp.setBounds(22, 260, 828, 314);
+		add(sp);
+		//tableArea.setBounds(22, 260, 828, 314);
+
+		
+		
 		
 		// 실행할 기능을 선택
 		JComboBox comboBox = new JComboBox();
@@ -292,7 +299,7 @@ public class AdminPage extends JFrame {
 				if(option.equals("INSERT")) {
 					setPanel.setVisible(false);
 					wherePanel.setVisible(false);
-					tableArea.setVisible(false);
+					sp.setVisible(false);
 					insertFlag = 1;
 					
 				}
@@ -490,7 +497,7 @@ public class AdminPage extends JFrame {
 						// 속성이 3개인 table
 						if(table1.equals("Seat") || table1.equals("Theater")) {
 							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+");";
-							System.out.println(query);
+							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -498,7 +505,7 @@ public class AdminPage extends JFrame {
 						// 속성이 4개인 table
 						else if (table1.equals("Member")) {
 							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ ");";
-							System.out.println(query);
+							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -506,7 +513,7 @@ public class AdminPage extends JFrame {
 						// 속성이 6개인 table
 						else if (table1.equals("Reservation")) {
 							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+");";
-							System.out.println(query);
+							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -514,7 +521,7 @@ public class AdminPage extends JFrame {
 						// 속성이 7개인 table
 						else if (table1.equals("Schedule")) {
 							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ ");";
-							System.out.println(query);
+							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -522,7 +529,7 @@ public class AdminPage extends JFrame {
 						// 속성이 8개인 table
 						else if (table1.equals("Ticket")) {
 							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ "," +prop8+ ");";
-							System.out.println(query);
+							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -530,7 +537,7 @@ public class AdminPage extends JFrame {
 						// 속성이 9개인 table
 						else if (table1.equals("Movie")) {
 							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ "," +prop8+ "," + prop9+ ");";
-							System.out.println(query);
+							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -564,7 +571,7 @@ public class AdminPage extends JFrame {
 					try {
 						messageLabel.setText("");
 						String query = "delete from "+table1+" where "+where;
-						System.out.println(query);
+						//System.out.println(query);
 						pst = con.prepareStatement(query);
 						int ret = pst.executeUpdate();						
 					}
@@ -616,7 +623,7 @@ public class AdminPage extends JFrame {
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();	
 					
-					System.out.println("table 모두 삭제");
+					//System.out.println("table 모두 삭제");
 
 					// table 생성
 					query = "CREATE TABLE IF NOT EXISTS `Movie`(\r\n"
@@ -695,7 +702,7 @@ public class AdminPage extends JFrame {
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
 					
-					System.out.println("table 모두 생성");
+					//System.out.println("table 모두 생성");
 
 					// data 입력
 					query = "INSERT INTO `Movie` VALUES"
@@ -714,7 +721,7 @@ public class AdminPage extends JFrame {
 
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
-					System.out.println("movie inserted");
+					//System.out.println("movie inserted");
 					query = "INSERT INTO `Theater` VALUES"
 							+ "(1, 10, True)," 
 							+ "(2, 20, True)," 
@@ -729,7 +736,7 @@ public class AdminPage extends JFrame {
 					
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
-					System.out.println("Theater inserted");
+					//System.out.println("Theater inserted");
 
 					query = "INSERT INTO `Schedule` VALUES"
 							+ "(1, 1, 1, STR_TO_DATE('2021-01-01','%Y-%m-%d'), 'Fri', 1, '16:30'),"
@@ -758,7 +765,7 @@ public class AdminPage extends JFrame {
 							+ "(24, 12, 6, STR_TO_DATE('2021-12-22','%Y-%m-%d'), 'Wed', 2, '20:30');";														
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
-					System.out.println("Schedule inserted");
+					//System.out.println("Schedule inserted");
 
 					query = "INSERT INTO `Member` VALUES"
 							+ "(1, '이가윤', '010-000-0001', 'qwdqdq@naver.com'),"
@@ -773,7 +780,7 @@ public class AdminPage extends JFrame {
 							+ "(10, '이차윤', '010-000-00010', 'qge0123@naver.com');";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
-					System.out.println("Member inserted");
+					//System.out.println("Member inserted");
 
 					query = "INSERT INTO `Seat` VALUES"
 							+ "(1, 1, True),"
@@ -808,7 +815,7 @@ public class AdminPage extends JFrame {
 							+ "(30, 10, False);";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
-					System.out.println("Seat inserted");
+					//System.out.println("Seat inserted");
 
 					query = "INSERT INTO `Reservation` VALUES"
 							+ "(1, 'Card', 7000, TRUE, 1, STR_TO_DATE('2021-01-01','%Y-%m-%d')),"
@@ -823,7 +830,7 @@ public class AdminPage extends JFrame {
 							+ "(10, 'Card', 7000, TRUE, 10, STR_TO_DATE('2021-10-01','%Y-%m-%d'));";				
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
-					System.out.println("reservation inserted");
+					//System.out.println("reservation inserted");
 
 					query = "INSERT INTO `Ticket` VALUES"
 							+ "(1, 1, 1, 1, 1, TRUE,  8000, 7000),"
@@ -838,13 +845,13 @@ public class AdminPage extends JFrame {
 							+ "(10, 1, 10, 27, 10, TRUE,  8000, 7000);";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();					
-					System.out.println("Ticket inserted");
+					//System.out.println("Ticket inserted");
 
 					messageLabel.setText("초기화를 성공적으로 완료했습니다.");
 				}
 				catch (Exception ex) {
 					messageLabel.setText(("Error"+ex));	
-					System.out.println(ex);
+					//System.out.println(ex);
 				}
 			}
 		});
@@ -858,13 +865,13 @@ public class AdminPage extends JFrame {
 		
 
 		// 검색 기능
-		tableArea.setVisible(false);
+		sp.setVisible(false);
 		JButton btn3 = new JButton("테이블 검색");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String table2 = searchBox.getSelectedItem().toString();
 				propPanel.setVisible(false);
-				tableArea.setVisible(true);
+				sp.setVisible(true);
 				if(table2.equals("Member")) {
 					try {
 						tableArea.setText("회원 아이디 \t 고객명 \t 전화번호 \t 전자메일 \n");
@@ -876,7 +883,7 @@ public class AdminPage extends JFrame {
 							String phone = v.getPhone();
 							String mail = v.getMail();
 							String str = id+"\t"+name+"\t"+phone+"\t"+mail+"\n";
-							System.out.println(str);
+							//System.out.println(str);
 							tableArea.append(str);
 						}
 					}
@@ -887,7 +894,7 @@ public class AdminPage extends JFrame {
 					
 					else if (table2.equals("Movie")) {
 						try {
-							tableArea.setText("영화번호 \t 영화명 \t 상영시간 \t 상영등급 \t 감독명 \t 배우명 \t 장르 \t 영화소개 \t 개봉일 정보\n");
+							tableArea.setText("영화번호 \t 영화명 \t\t 상영시간 \t\t 상영등급 \t\t 감독명 \t\t 배우명 \t\t 장르 \t 개봉일 \t 영화 정보\n");
 							MovieListDAO movieDAO = new MovieListDAO();
 							ArrayList<MovieListVO> movieList = movieDAO.getMovieList();
 							for (MovieListVO v: movieList) {
@@ -899,10 +906,10 @@ public class AdminPage extends JFrame {
 								String actor = v.getActor();
 								String genre = v.getGenre();
 								String info = v.getInfo();
-										
+								String date = v.getDate();
 								
-								String str = id+"\t"+title+"\t"+time+"\t"+grade+"\t"+dir+"\t"+actor+"\t"+genre+"\t"+info+"\n";
-								System.out.println(str);
+								String str = id+"\t"+title+"\t\t"+time+"\t\t"+grade+"\t\t"+dir+"\t\t"+actor+"\t\t"+genre+"\t"+date+"\t"+info+"\n";
+								//System.out.println(str);
 								tableArea.append(str);
 							}
 						}
@@ -925,7 +932,7 @@ public class AdminPage extends JFrame {
 										
 								
 								String str = id+"\t"+payment+"\t"+cost+"\t"+paid+"\t"+mid+"\t"+date+"\n";
-								System.out.println(str);
+								//System.out.println(str);
 								tableArea.append(str);
 							}
 						}
@@ -949,7 +956,7 @@ public class AdminPage extends JFrame {
 										
 								
 								String str = id+"\t"+mid+"\t"+tid+"\t"+date+"\t"+day+"\t"+nth+"\t"+time+"\n";
-								System.out.println(str);
+								//System.out.println(str);
 								tableArea.append(str);
 							}
 						}
@@ -968,7 +975,7 @@ public class AdminPage extends JFrame {
 								boolean use = v.getSeat();									
 								
 								String str = id+"\t"+tid+"\t"+use+"\n";
-								System.out.println(str);
+							//	System.out.println(str);
 								tableArea.append(str);
 							}
 						}
@@ -987,7 +994,7 @@ public class AdminPage extends JFrame {
 								boolean use = v.getUse();									
 								
 								String str = id+"\t"+seats+"\t"+use+"\n";
-								System.out.println(str);
+							//	System.out.println(str);
 								tableArea.append(str);
 							}
 						}
@@ -1011,7 +1018,7 @@ public class AdminPage extends JFrame {
 								int saleprice = v.getSaleprice();
 								
 								String str = id+"\t"+scid+"\t"+tid+"\t"+seid+"\t"+rid+"\t"+print+"\t"+price+"\t"+saleprice+"\n";
-								System.out.println(str);
+						//		System.out.println(str);
 								tableArea.append(str);
 							}
 						}
