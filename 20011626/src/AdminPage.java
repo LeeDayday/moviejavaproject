@@ -293,7 +293,8 @@ public class AdminPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// 첫번째 combobox 정보 가져오기
 				String option = comboBox.getSelectedItem().toString();
-				
+				sp.setVisible(false);
+
 				// UPDATE 일 때만 SET을 입력받는다
 				propPanel.setVisible(false);
 				if(option.equals("INSERT")) {
@@ -330,6 +331,8 @@ public class AdminPage extends JFrame {
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// combobox 정보 가져오기
+				sp.setVisible(false);
+
 				String table1 = comboBox_1.getSelectedItem().toString();
 				if(insertFlag == 1)
 				{
@@ -478,9 +481,11 @@ public class AdminPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				// ComboBox 정보 가져오기
+				sp.setVisible(false);
+
 				String option = comboBox.getSelectedItem().toString();
 				String table1 = comboBox_1.getSelectedItem().toString();
-				System.out.println(option);
+				//System.out.println(option);
 				// INSERT 실행
 				if(option.equals("INSERT")) {
 					try {
@@ -512,7 +517,7 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 6개인 table
 						else if (table1.equals("Reservation")) {
-							String query = "insert into " +table1+ " values("+prop1+ ",'" +prop2+ "'," + prop3+ "," +prop4+ "," +prop5+ ",'" +prop6+"');";
+							String query = "insert into " +table1+ " values("+prop1+ ",'" +prop2+ "'," + prop3+ "," +prop4+ "," +prop5+ ", STR_TO_DATE('" +prop6+"', '%Y-%m-%d'));";
 							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
@@ -520,8 +525,9 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 7개인 table
 						else if (table1.equals("Schedule")) {
-							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ ",'" +prop4+ "','" +prop5+ "'," +prop6+ ",'" +prop7+ "');";
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ ", STR_TO_DATE('" +prop4+ "','%Y-%m-%d'),'" +prop5+ "'," +prop6+ ",'" +prop7+ "');";
 							//System.out.println(query);
+							//STR_TO_DATE('2021-01-01','%Y-%m-%d')
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -536,8 +542,10 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 9개인 table
 						else if (table1.equals("Movie")) {
-							String query = "insert into " +table1+ " values("+prop1+ ",'" +prop2+ "'," + prop3+ ",'" +prop4+ "','" +prop5+ "','" +prop6+ "','" +prop7+ "','" +prop8+ "'," + prop9+ ");";
+							String query = "insert into " +table1+ " values("+prop1+ ",'" +prop2+ "'," + prop3+ ",'" +prop4+ "','" +prop5+ "','" +prop6+ "','" +prop7+ "','" +prop8+ "',"
+									+ "STR_TO_DATE('" + prop9+ "','%Y-%m-%d'));";
 							//System.out.println(query);
+							//STR_TO_DATE('2021-01-01','%Y-%m-%d')
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
 							messageLabel.setText("Insert 성공!");
@@ -575,7 +583,7 @@ public class AdminPage extends JFrame {
 						//System.out.println(query);
 						pst = con.prepareStatement(query);
 						int ret = pst.executeUpdate();	
-						messageLabel.setText("Update 성공!");
+						messageLabel.setText("Delete 성공!");
 					}
 					catch (Exception ex) {
 						messageLabel.setText(("Delete Error"+ex));
@@ -985,6 +993,7 @@ public class AdminPage extends JFrame {
 								
 								String str = id+"\t"+mid+"\t"+tid+"\t"+date+"\t"+day+"\t"+nth+"\t"+time+"\n";
 								//System.out.println(str);
+								//
 								tableArea.append(str);
 							}
 						}
