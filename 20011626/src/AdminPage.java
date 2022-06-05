@@ -484,7 +484,7 @@ public class AdminPage extends JFrame {
 				// INSERT 실행
 				if(option.equals("INSERT")) {
 					try {
-						System.out.println("Start Insert");
+						//System.out.println("Start Insert");
 						String prop1 = propF1.getText();
 						String prop2 = propF2.getText();
 						String prop3 = propF3.getText();
@@ -504,7 +504,7 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 4개인 table
 						else if (table1.equals("Member")) {
-							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ ");";
+							String query = "insert into " +table1+ " values("+prop1+ ", '" +prop2+ "','" + prop3+ "','" +prop4+ "');";
 							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
@@ -512,7 +512,7 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 6개인 table
 						else if (table1.equals("Reservation")) {
-							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+");";
+							String query = "insert into " +table1+ " values("+prop1+ ",'" +prop2+ "'," + prop3+ "," +prop4+ "," +prop5+ ",'" +prop6+"');";
 							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
@@ -520,7 +520,7 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 7개인 table
 						else if (table1.equals("Schedule")) {
-							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ ");";
+							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ ",'" +prop4+ "','" +prop5+ "'," +prop6+ ",'" +prop7+ "');";
 							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
@@ -536,7 +536,7 @@ public class AdminPage extends JFrame {
 						}
 						// 속성이 9개인 table
 						else if (table1.equals("Movie")) {
-							String query = "insert into " +table1+ " values("+prop1+ "," +prop2+ "," + prop3+ "," +prop4+ "," +prop5+ "," +prop6+ "," +prop7+ "," +prop8+ "," + prop9+ ");";
+							String query = "insert into " +table1+ " values("+prop1+ ",'" +prop2+ "'," + prop3+ ",'" +prop4+ "','" +prop5+ "','" +prop6+ "','" +prop7+ "','" +prop8+ "'," + prop9+ ");";
 							//System.out.println(query);
 							pst = con.prepareStatement(query);
 							int ret = pst.executeUpdate();
@@ -560,7 +560,8 @@ public class AdminPage extends JFrame {
 						String query = "update "+table1+" set "+set+" where "+where;
 						//System.out.println(query);
 						pst = con.prepareStatement(query);
-						int ret = pst.executeUpdate();						
+						int ret = pst.executeUpdate();	
+						messageLabel.setText("Update 성공!");
 					}
 					catch (Exception ex) {
 						messageLabel.setText(("Update Error"+ex));
@@ -573,7 +574,8 @@ public class AdminPage extends JFrame {
 						String query = "delete from "+table1+" where "+where;
 						//System.out.println(query);
 						pst = con.prepareStatement(query);
-						int ret = pst.executeUpdate();						
+						int ret = pst.executeUpdate();	
+						messageLabel.setText("Update 성공!");
 					}
 					catch (Exception ex) {
 						messageLabel.setText(("Delete Error"+ex));
@@ -894,7 +896,20 @@ public class AdminPage extends JFrame {
 					
 					else if (table2.equals("Movie")) {
 						try {
-							tableArea.setText("영화번호 \t 영화명 \t\t 상영시간 \t\t 상영등급 \t\t 감독명 \t\t 배우명 \t\t 장르 \t 개봉일 \t 영화 정보\n");
+							StringBuilder colTitle = new StringBuilder("영화명");
+							StringBuilder colGrade = new StringBuilder("상영등급");
+							StringBuilder colDir = new StringBuilder("감독명");
+							StringBuilder colAct = new StringBuilder("배우명");
+							StringBuilder colGen = new StringBuilder("장르");
+							
+							colTitle.setLength(30);
+							colGrade.setLength(10);
+							colDir.setLength(20);
+							colAct.setLength(20);
+							colGen.setLength(20);		
+							
+							tableArea.setText("영화번호\t"+colTitle+"\t"+ "상영시간\t"+colGrade+"\t"+colDir+"\t"+colAct+"\t"+colGen+"\t개봉일\t영화정보\n");
+							//tableArea.setText("영화번호 \t 영화명 \t 상영시간 \t 상영등급 \t 감독명 \t 배우명 \t 장르 \t 개봉일 \t 영화 정보\n");
 							MovieListDAO movieDAO = new MovieListDAO();
 							ArrayList<MovieListVO> movieList = movieDAO.getMovieList();
 							for (MovieListVO v: movieList) {
@@ -908,7 +923,20 @@ public class AdminPage extends JFrame {
 								String info = v.getInfo();
 								String date = v.getDate();
 								
-								String str = id+"\t"+title+"\t\t"+time+"\t\t"+grade+"\t\t"+dir+"\t\t"+actor+"\t\t"+genre+"\t"+date+"\t"+info+"\n";
+								StringBuilder SBtitle = new StringBuilder(title);
+								StringBuilder SBgrade = new StringBuilder(grade);
+								StringBuilder SBdir = new StringBuilder(dir);
+								StringBuilder SBactor = new StringBuilder(actor);
+								StringBuilder SBgenre = new StringBuilder(genre);
+								
+								SBtitle.setLength(30);
+								SBgrade.setLength(10);
+								SBdir.setLength(20);
+								SBactor.setLength(20);
+								SBgenre.setLength(20);
+								
+								//System.out.println(SBgrade+ "length:"+SBgrade.length());
+								String str = id+"\t"+SBtitle+"\t"+time+"\t"+SBgrade+"\t"+SBdir+"\t"+SBactor+"\t"+SBgenre+"\t"+date+"\t"+info+"\n";
 								//System.out.println(str);
 								tableArea.append(str);
 							}
