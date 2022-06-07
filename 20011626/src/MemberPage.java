@@ -335,8 +335,8 @@ public class MemberPage extends JFrame {
    
    private void deleteMovie(String id) { // 예매 취소
       JFrame resFrame = new JFrame();
-      JLabel signLabel = new JLabel("취소할 영화의 번호를 입력하세요.");
-      JLabel textLabel = new JLabel("영화 번호 : ");
+      JLabel signLabel = new JLabel("취소할 예매 번호를 입력하세요.");
+      JLabel textLabel = new JLabel("예매 번호 : ");
       JTextField textField = new JTextField();
       JButton deleteMiniButton = new JButton("예매 취소");
       
@@ -512,13 +512,12 @@ public class MemberPage extends JFrame {
    
    private void deleteMemberMovie(String movie, String member) {
       try {
-         String sql = String.format("DELETE FROM reservation WHERE res_id = '%s'", member);
+         String sql = String.format("DELETE FROM Reservation WHERE res_id = '%s'", member);
          pst = con.prepareStatement(sql);
-         pst.setInt(1, Integer.parseInt(movie));
          pst.executeUpdate();
          
       } catch(SQLException e) {
-         System.out.println("오류");
+         System.out.println("오류"+e);
       }
    }
    
