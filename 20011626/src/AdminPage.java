@@ -637,7 +637,7 @@ public class AdminPage extends JFrame {
 
 					// table »ý¼º
 					query = "CREATE TABLE IF NOT EXISTS `Movie`(\r\n"
-							+ "	`Movie_id`	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Movie_id`	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Movie_title`	VARCHAR(30),\r\n"
 							+ "	`Movie_time`	INTEGER,\r\n"
 							+ "	`Movie_grade`	VARCHAR(10),\r\n"
@@ -650,14 +650,14 @@ public class AdminPage extends JFrame {
 					cnt = pst.executeUpdate();	
 					
 					query = "CREATE TABLE IF NOT EXISTS `Theater` (\r\n"
-							+ "	`Theater_id` 	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Theater_id` 	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Theater_seats`	INTEGER,\r\n"
 							+ "	`Theater_use`	BOOLEAN	\r\n);";
 					pst = con.prepareStatement(query);
 					cnt = pst.executeUpdate();
 					
 					query = "CREATE TABLE IF NOT EXISTS `Schedule` (\r\n"
-							+ "	`Schedule_id` 	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Schedule_id` 	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Movie_id`	INTEGER,\r\n"
 							+ "	`Theater_id`	INTEGER,\r\n"
 							+ "	`Schedule_date`	VARCHAR(10),\r\n"
@@ -670,7 +670,7 @@ public class AdminPage extends JFrame {
 					cnt = pst.executeUpdate();
 					
 					query = "CREATE TABLE IF NOT EXISTS `Seat` (\r\n"
-							+ "	`Seat_id` 	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Seat_id` 	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Theater_id`	INTEGER,\r\n"
 							+ "	`Seat_use`	BOOLEAN,\r\n"
 							+ "	FOREIGN KEY (`Theater_id`) REFERENCES Theater(`Theater_id`) on delete cascade on update cascade\r\n);";
@@ -678,7 +678,7 @@ public class AdminPage extends JFrame {
 					cnt = pst.executeUpdate();
 					
 					query = "CREATE TABLE IF NOT EXISTS `Member` (\r\n"
-							+ "	`Member_id` 	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Member_id` 	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Member_name`	VARCHAR(10),\r\n"
 							+ "	`Member_phone`	VARCHAR(15),\r\n"
 							+ "	`Member_mail`	VARCHAR(25)\r\n);";
@@ -686,7 +686,7 @@ public class AdminPage extends JFrame {
 					cnt = pst.executeUpdate();
 					
 					query = "CREATE TABLE IF NOT EXISTS `Reservation` (\r\n"
-							+ "	`Res_id` 	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Res_id` 	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Res_payment`	VARCHAR(10),\r\n"
 							+ "	`Res_cost`	INTEGER,\r\n"
 							+ " `Res_paid`	BOOLEAN,\r\n"
@@ -697,7 +697,7 @@ public class AdminPage extends JFrame {
 					cnt = pst.executeUpdate();
 					
 					query = "CREATE TABLE IF NOT EXISTS `Ticket` (\r\n"
-							+ "	`Ticket_id`	INTEGER PRIMARY KEY,\r\n"
+							+ "	`Ticket_id`	INTEGER PRIMARY KEY auto_increment,\r\n"
 							+ "	`Schedule_id`	INTEGER,\r\n"
 							+ "	`Theater_id`	BOOLEAN,\r\n"
 							+ "	`Seat_id`	INTEGER,\r\n"

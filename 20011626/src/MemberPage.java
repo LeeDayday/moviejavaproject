@@ -167,7 +167,7 @@ public class MemberPage extends JFrame {
          public void actionPerformed(ActionEvent e) {
             movieSearchArea.setText("");
             movieSearchArea.append(String.format("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\n", "영화 번호", "영화 제목", "상영시간", "관람등급", "감독", "배우", "장르", "설명", "개봉일"));
-         
+            selectMovieListFromDataBase(searchField[0].getText(), searchField[1].getText(), searchField[2].getText(), searchField[3].getText());
          }
       });
       reservationButton.addActionListener(new ActionListener() {
@@ -197,7 +197,7 @@ public class MemberPage extends JFrame {
       JLabel [] textLabel = new JLabel[2];
       JButton resMiniButton = new JButton("예매");
       
-      selectMovieListFromDataBase(searchField[0].getText(), searchField[1].getText(), searchField[2].getText(), searchField[3].getText());
+     
       
    
             JFrame resFrame = new JFrame();
@@ -462,18 +462,17 @@ public class MemberPage extends JFrame {
          }
    }
    
-   private void insertMemberListToDataBase(String memberid, String movieid) {
-      try {
-         String sql = String.format("UPDATE Ticket SET Member_id = '%s' WHERE Schedule_id = '%s' AND Member_id = null", movieid, memberid);
-         pst = con.prepareStatement(sql);
-         pst.setInt(9, Integer.parseInt(memberid));
-         pst.executeUpdate();
-         
-      } catch (SQLException e) {
-         e.printStackTrace();
-   }
-   }
-   
+   private void insertMemberListToDataBase(String memberid, String movieid) { // 예매하기
+	      try {
+	         String sql = String.format("INSERT INTO Ticket(Schedule_id, Seat_id, Ticket_print, Ticket_price, Ticket_saleprice) VALUES('%s', 3, true, 10000, 7000)", movieid);
+	         String sql2 = String.format("INSERT INTO Reservation(Res_payment, Res_cost, Res_paid, Member_id, Res_date) VALUES('cash', 7000, true, '%s', '2021-10-01')", memberid);
+	         st.executeUpdate(sql);
+	         st.executeUpdate(sql2);
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	   }
+	   }
    private void selectMembersMovieList(String id) {
       try {
          st = con.createStatement();
