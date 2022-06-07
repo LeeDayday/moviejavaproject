@@ -109,17 +109,19 @@ public class MemberPage extends JFrame {
    private void showSearchPage() { // 영화 검색 부분 보여주는 페이지 
       searchButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
-            printSearchPage();
             mainPanel.setVisible(false);
+            printSearchPage();
             mainFrame.add(searchPagePanel);
+            mainFrame.repaint();
          }
       }); 
          
    }
    
-   private void printSearchPage() {
+   private void printSearchPage() { // 영화 검색
       searchPagePanel.setPreferredSize(new Dimension(900, 650));
       searchPagePanel.setLayout(null);
+      searchPagePanel.setOpaque(false);
       
       backButton.setBounds(780, 10, 90, 20);
       
@@ -143,6 +145,8 @@ public class MemberPage extends JFrame {
       searchField[2].setLocation(120, 85);
       searchField[3].setLocation(120, 110);
       
+      reservationButton.setBounds(650, 110, 100, 20);
+      
       movieSearchButton.setBounds(540, 110, 100, 20);
       
       movieSearchArea.setBounds(20, 150, 840, 400);
@@ -157,13 +161,20 @@ public class MemberPage extends JFrame {
       searchPagePanel.add(movieSearchButton);
       searchPagePanel.add(backButton);
       searchPagePanel.add(movieSearchArea);
+      searchPagePanel.add(reservationButton);
       
       movieSearchButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
-            printReservation();
+            movieSearchArea.setText("");
+            movieSearchArea.append(String.format("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\n", "영화 번호", "영화 제목", "상영시간", "관람등급", "감독", "배우", "장르", "설명", "개봉일"));
+         
          }
       });
-      
+      reservationButton.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+        	   printReservation();
+          }
+      });
       searchPagePanel.setVisible(true);
       
       backButton.addActionListener(new ActionListener() {
@@ -179,8 +190,6 @@ public class MemberPage extends JFrame {
    }
    
    private void printReservation() {
-      reservationButton.setBounds(650, 110, 100, 20);
-      searchPagePanel.add(reservationButton);
       
       JLabel signLabel = new JLabel("개인정보와 예매할 영화번호를 입력하세요.");
       String [] information = {"아이디 : ", "영화번호 : "}; 
@@ -188,12 +197,9 @@ public class MemberPage extends JFrame {
       JLabel [] textLabel = new JLabel[2];
       JButton resMiniButton = new JButton("예매");
       
-      movieSearchArea.append(String.format("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\n", "영화 번호", "영화 제목", "상영시간", "관람등급", "감독", "배우", "장르", "설명", "개봉일"));
       selectMovieListFromDataBase(searchField[0].getText(), searchField[1].getText(), searchField[2].getText(), searchField[3].getText());
       
-      
-      reservationButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
+   
             JFrame resFrame = new JFrame();
             resFrame.setTitle("Reservation");
             resFrame.setSize(400, 200);
@@ -238,8 +244,7 @@ public class MemberPage extends JFrame {
                   insertMemberListToDataBase(textField[1].getText(), textField[0].getText());
                }
             });
-         }
-      });
+       
    }
 
    
@@ -417,23 +422,44 @@ public class MemberPage extends JFrame {
    
    
    private void selectMovieListFromDataBase(String title, String dir, String actor, String genre) {
-      try {
-         st = con.createStatement();
-         String query = String.format("SELECT * FROM Movie WHERE Movie_title='%s' AND Movie_dir='%s' AND Movie_actor='%s' AND Movie_genre = '%s'", title, dir, actor, genre);
-         result = st.executeQuery(query);
-         
-         while(result.next()) {
-            if (title.equals(result.getString(2))) 
+        try {
+            st = con.createStatement();
+            String query;
+       
+            if (title.length() == 0 && dir.length() == 0 && actor.length() == 0 && genre.length() == 0) {
+               query = "SELECT * FROM Movie";
+            }
+            else {
+               query = "SELECT * FROM Movie WHERE ";
+            }
             
-            movieSearchArea.append(String.format("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\n", 
-                  Integer.toString(result.getInt(1)), result.getString(2), Integer.toString(result.getInt(3)), result.getString(4),
-                        result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9)));
+            if (title.length() != 0) {
+               query += String.format("Movie_title='%s' AND ", title);
+            }
+            if (dir.length() != 0) {
+               query += String.format("Movie_dir='%s' AND ",  dir);
+            }
+            if (actor.length() != 0) {
+               query += String.format("Movie_actor='%s' AND ", actor);
+            }
+            if (genre.length() != 0) {
+               query += String.format("Movie_genre='%s'", genre);
+            }
+            
+            if (query.substring(query.length() - 4).equals("AND ")) {
+               query = query.substring(0, query.length() - 5);
+            }
 
+            result = st.executeQuery(query);
+            while(result.next()) {
+               movieSearchArea.append(String.format("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\n", 
+                     Integer.toString(result.getInt(1)), result.getString(2), Integer.toString(result.getInt(3)), result.getString(4),
+                           result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9)));
+            }
+            
+         }catch(SQLException e) {
+            System.out.println("오류");
          }
-         
-      }catch(SQLException e) {
-         System.out.println("오류");
-      }
    }
    
    private void insertMemberListToDataBase(String memberid, String movieid) {
@@ -486,7 +512,7 @@ public class MemberPage extends JFrame {
    
    private void deleteMemberMovie(String movie, String member) {
       try {
-         String sql = String.format("DELETE FROM Ticket WHERE Ticket_id = '%s', AND Member_id = '%s'", movie, member);
+         String sql = String.format("DELETE FROM reservation WHERE res_id = '%s'", member);
          pst = con.prepareStatement(sql);
          pst.setInt(1, Integer.parseInt(movie));
          pst.executeUpdate();

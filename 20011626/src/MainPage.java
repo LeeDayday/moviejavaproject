@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -40,7 +41,9 @@ public class MainPage extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		JLabel dateLabel = new JLabel("Welcome! 오늘은 2021-10-01입니다.");
+		dateLabel.setBounds(172, 29, 261, 46);
+		contentPane.add(dateLabel);
 		// 관리자 전용
 		JButton adminBtn = new JButton("관리자 전용");
 		adminBtn.addActionListener(new ActionListener() {
